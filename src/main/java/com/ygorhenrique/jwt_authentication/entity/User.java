@@ -30,6 +30,11 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
+    public User(String login, String password, UserRole role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -37,6 +42,11 @@ public class User implements UserDetails {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         }
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override
